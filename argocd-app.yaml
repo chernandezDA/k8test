@@ -1,0 +1,21 @@
+# Método 1: Usando YAML (argocd-app.yaml)
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/chernandezDA/k8test.git  # Cambia por tu repo
+    targetRevision: HEAD
+    path: k8s  # Directorio donde están tus manifiestos
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default  # O el namespace donde quieres desplegar
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

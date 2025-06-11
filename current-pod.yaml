@@ -1,0 +1,125 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/containerID: 6b5df84594c1abe494eee18d13875b75935d5499ce351cc17733455ec4907099
+    cni.projectcalico.org/podIP: 10.1.96.200/32
+    cni.projectcalico.org/podIPs: 10.1.96.200/32
+  creationTimestamp: "2025-04-30T18:59:28Z"
+  generateName: demo-deployment1-7c65447569-
+  labels:
+    app.kubernetes.io/name: demo-pods
+    pod-template-hash: 7c65447569
+  name: demo-deployment1-7c65447569-f44j9
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: demo-deployment1-7c65447569
+    uid: e92aae84-afb0-4580-8e4f-b9ba8dc099b9
+  resourceVersion: "5015105"
+  uid: 9c5467fa-9ded-4a66-a282-9dab4dc7e767
+spec:
+  containers:
+  - image: elmendez/busyhttp
+    imagePullPolicy: Always
+    name: demo
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-5htrr
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: practica1
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-5htrr
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2025-04-30T18:59:30Z"
+    status: "True"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2025-04-30T18:59:28Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2025-04-30T18:59:30Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2025-04-30T18:59:30Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2025-04-30T18:59:28Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://e8772a56f8531320539574ad3a55df91db072a03ec9682eb0dd2848ae8e788ce
+    image: docker.io/elmendez/busyhttp:latest
+    imageID: docker.io/elmendez/busyhttp@sha256:8d3541618de4316ad8bc95b0c0df1df189423e05cf08dc56ea73e1a6ef19512e
+    lastState: {}
+    name: demo
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2025-04-30T18:59:29Z"
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-5htrr
+      readOnly: true
+      recursiveReadOnly: Disabled
+  hostIP: 10.25.7.5
+  hostIPs:
+  - ip: 10.25.7.5
+  phase: Running
+  podIP: 10.1.96.200
+  podIPs:
+  - ip: 10.1.96.200
+  qosClass: BestEffort
+  startTime: "2025-04-30T18:59:28Z"
